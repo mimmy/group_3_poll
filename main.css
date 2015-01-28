@@ -8,14 +8,56 @@ html {
 }
 
 body {
-    background-image: url("Poll.jpg");
-    background-color: #1C1C1C;
+    background-color: #141414;
     background-size: 80% auto;
     background-repeat: no-repeat;
     background-position: center center;
+    font-family: Lato, Helvetica;
+    color: white;
+}
+body:before {
+    content: url("Poll.jpg");
+    opacity: 0.2;
+    width: 80%;
+    display: block;
+    position: absolute;
+z-index: -1;
+    left: 7%;
 }
 
 div {
     display: block;
     box-sizing: border-box;
+}
+
+h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 27px;
+    text-align: center;
+    width: 100%;
+    padding-top: 100px;
+    color: white;
+    padding-bottom: 40px;
+}
+
+label {
+    width: 30%;
+    padding-top: 10px;
+    display: inline-block;
+}
+
+form {
+    padding-left: 15%;
+}
+
+input[type=submit] {
+    margin-top: 30px;
+    background-color: #5ECFB3;
+    border-radius: 5px;
+    padding: 10px 15px;
+    border: none;
+}
+
+input[type=submit]:hover {
+color: white;
 }

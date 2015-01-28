@@ -7,6 +7,7 @@
     <title>Group 3 - Vote for a Class Representative</title>
 </head>
 <body>
+<h1>Who do you want to be your class WU 15-V representative?</h1>
     <?php
         $servername = "localhost";
         $username = "root";
@@ -31,14 +32,14 @@
                 $stmt = $conn->prepare("SELECT applicant_id, applicant_names FROM applicants");
                 $stmt->execute();
                 $result = $stmt->fetchAll();
-                echo "Connected successfully";
                 foreach($result as $key=>$value) {
-                    echo '<label><input type="radio" name="vote_choice" value="'.$value['applicant_id'].'"/>' . $value['applicant_names'] . '</label><br>';
+                    echo '<label><input type="radio" name="vote_choice" value="'.$value['applicant_id'].'"/>' . $value['applicant_names'] . '</label>';
                 }
-                echo '<input type="submit" value="Vote"/></form>';
+                echo '<br><input type="submit" value="VOTE"/></form>';
             }
             else {
-                echo 'You have already voted';
+            echo '<div class="results">';
+                echo '<h2>You have already voted</h2>';
                 $votecheck = $conn->prepare("SELECT applicant_names, COUNT( votes.voter_ip ) FROM applicants LEFT OUTER JOIN votes ON votes.applicant_id = applicants.applicant_id GROUP BY applicant_names ORDER BY COUNT( votes.voter_ip ) DESC LIMIT 0 , 3");
                 $votecheck->execute();
                 $voteresult = $votecheck->fetchAll();
@@ -51,11 +52,12 @@
                      $borderradius = '5';
                      $percentage = 100/$totalvotes*$personvotes;
                      echo '/'.$totalvotes;
-                     echo '<div style="height: '.$barheight.'px; background-color: #c3c6c6; width: '.$barwidth.'px; border-radius:'.$borderradius.'px; display: block;"><div style="height: '.$barheight.'px; border-bottom-left-radius:'.$borderradius.'px; border-top-left-radius:'.$borderradius.'px; display: block; background-color: #f24538; width: '. $barwidth/$totalvotes*$personvotes.'px; color: white;">'. number_format((float)$percentage, 2, '.', '') . '%</div></div>';
+                     echo '<div style="height: '.$barheight.'px; background-color: #c3c6c6; width: '.$barwidth.'px; border-radius:'.$borderradius.'px; display: block;"><div style="height: '.$barheight.'px; padding-top: 5px; padding-left: 5px; border-bottom-left-radius:'.$borderradius.'px; border-top-left-radius:'.$borderradius.'px; display: block; background-color: #f24538; width: '. $barwidth/$totalvotes*$personvotes.'px; color: white;">'. number_format((float)$percentage, 2, '.', '') . '%</div></div>';
+                echo '</div>';
                 }
             }
-            echo $inarray;
-            print_r($ipresult);
+//            echo $inarray;
+//            print_r($ipresult);
         }
         catch(PDOException $e){
             echo "Connection failed: " . $e->getMessage();
